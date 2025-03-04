@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Special Someone</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6f2;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            color: #ff66b3;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 0.5s forwards;
+        }
+        
+        .heart {
+            color: #ff3385;
+            font-size: 5rem;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .message {
+            color: #ff66b3;
+            font-size: 2rem;
+            margin-top: 1rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 1.5s forwards;
+        }
+        
+        .piglet {
+            margin-top: 2rem;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            transform: scale(0);
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.5s forwards;
+        }
+        
+        .piglet-body {
+            width: 120px;
+            height: 100px;
+            background-color: #ffb6c1;
+            border-radius: 60% 60% 70% 70%;
+            position: absolute;
+            top: 50px;
+            left: 40px;
+        }
+        
+        .piglet-head {
+            width: 100px;
+            height: 80px;
+            background-color: #ffb6c1;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 50px;
+        }
+        
+        .piglet-ear {
+            width: 30px;
+            height: 30px;
+            background-color: #ff99aa;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .piglet-ear-left {
+            top: 5px;
+            left: 45px;
+        }
+        
+        .piglet-ear-right {
+            top: 5px;
+            right: 45px;
+        }
+        
+        .piglet-eye {
+            width: 15px;
+            height: 15px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 35px;
+        }
+        
+        .piglet-eye-left {
+            left: 70px;
+        }
+        
+        .piglet-eye-right {
+            right: 70px;
+        }
+        
+        .piglet-nose {
+            width: 25px;
+            height: 20px;
+            background-color: #ff6b8b;
+            border-radius: 45%;
+            position: absolute;
+            top: 50px;
+            left: 87px;
+        }
+        
+        .falling-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: #ff66b3;
+            font-size: 20px;
+            animation: fall linear;
+            opacity: 0.7;
+        }
+        
+        .button-container {
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 3.5s forwards;
+        }
+        
+        .surprise-button {
+            background-color: #ff66b3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .surprise-button:hover {
+            background-color: #ff3385;
+            transform: scale(1.1);
+        }
+        
+        .hidden-message {
+            max-width: 600px;
+            margin: 2rem auto;
+            color: #ff3385;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255, 102, 179, 0.2);
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 1s, height 1s, margin 1s;
+        }
+        
+        .show-message {
+            opacity: 1;
+            height: auto;
+            margin: 2rem auto;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="falling-hearts" id="heartContainer"></div>
+    
+    <div class="container">
+        <h1>I <span class="heart">♥</span> Piglet</h1>
+        <div class="message">A special message for a special someone</div>
+        
+        <div class="piglet">
+            <div class="piglet-head"></div>
+            <div class="piglet-ear piglet-ear-left"></div>
+            <div class="piglet-ear piglet-ear-right"></div>
+            <div class="piglet-eye piglet-eye-left"></div>
+            <div class="piglet-eye piglet-eye-right"></div>
+            <div class="piglet-nose"></div>
+            <div class="piglet-body"></div>
+        </div>
+        
+        <div class="button-container">
+            <button class="surprise-button" id="surpriseButton">Click for a surprise!</button>
+        </div>
+        
+        <div class="hidden-message" id="hiddenMessage">
+            You make my heart skip a beat every time I see you. Your smile brightens my day, and your laugh is my favorite melody. I'm so lucky to have you in my life, and I want you to know that you're amazing in every way. I love you more than words can express! P.S. I know how much you love piglets, so I made this just for you. ♥
+        </div>
+    </div>
+    
+    <script>
+        // Create falling hearts
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const heartSymbols = ['♥', '💕', '💓', '💗', '💖'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                
+                // Random properties
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                
+                container.appendChild(heart);
+                
+                // Remove hearts after animation completes
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 200);
+        }
+        
+        // Reveal hidden message
+        document.getElementById('surpriseButton').addEventListener('click', function() {
+            const hiddenMessage = document.getElementById('hiddenMessage');
+            hiddenMessage.classList.toggle('show-message');
+            
+            if (hiddenMessage.classList.contains('show-message')) {
+                this.textContent = 'Hide message';
+            } else {
+                this.textContent = 'Click for a surprise!';
+            }
+        });
+        
+        // Add interactive animation to piglet
+        const piglet = document.querySelector('.piglet');
+        piglet.addEventListener('mouseover', function() {
+            this.style.animation = 'pulse 0.5s infinite';
+        });
+        
+        piglet.addEventListener('mouseout', function() {
+            this.style.animation = '';
+        });
+        
+        // Start the falling hearts when the page loads
+        window.addEventListener('load', createHearts);
+    </script>
+</body>
+</html>
